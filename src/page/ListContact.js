@@ -109,7 +109,13 @@ function ListContact() {
   return (
     <Layout title="Your Contacts">
       <Button>Add new contact</Button>
-      <ListWrapper>{listOfContacts}</ListWrapper>
+      <ListWrapper>
+        {isGetAllContactDataLoading === "pending" ? "Loading..." : null}
+        {isGetAllContactDataLoading === "rejected"
+          ? "Sorry something is wrong"
+          : null}
+        {isGetAllContactDataLoading === "fulfilled" ? listOfContacts : null}
+      </ListWrapper>
     </Layout>
   );
 }
