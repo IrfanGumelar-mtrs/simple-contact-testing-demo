@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Wrapper = styled.form`
+const Wrapper = styled.div`
   margin: 1rem 0;
   && > * {
     margin-bottom: 1rem;

@@ -17,12 +17,16 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-function InputText() {
+function InputText(props) {
+  console.log(props);
   return (
     <FieldGroup>
-      <label>First Name</label>
-      <Input />
-      <ErrorMessage>Input Invalid</ErrorMessage>
+      <label>{props.label}</label>
+      <Input {...props} />
+
+      {props.touched && props.errors ? (
+        <ErrorMessage>{props.errors}</ErrorMessage>
+      ) : null}
     </FieldGroup>
   );
 }
