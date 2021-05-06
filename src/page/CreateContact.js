@@ -48,8 +48,6 @@ function CreateContact() {
         initialValues={{ firstName: "", lastName: "", age: "" }}
         validationSchema={CreateContactSchema}
         onSubmit={(values) => {
-          console.log("im clicked");
-          console.log(values);
           dispatch(createNewContact(values));
         }}
       >
@@ -58,6 +56,7 @@ function CreateContact() {
             <InputText
               label="First Name"
               id="firstName"
+              data-testid="firstName"
               type="text"
               {...formik.getFieldProps("firstName")}
               errors={formik.errors.firstName}
@@ -68,6 +67,7 @@ function CreateContact() {
               label="Last Name"
               id="lastName"
               type="text"
+              data-testid="lastName"
               {...formik.getFieldProps("lastName")}
               errors={formik.errors.lastName}
               touched={formik.touched.lastName}
@@ -77,12 +77,14 @@ function CreateContact() {
               label="Age"
               id="age"
               type="number"
+              data-testid="age"
               {...formik.getFieldProps("age")}
               errors={formik.errors.age}
               touched={formik.touched.age}
             />
 
             <Button
+              data-testid="create-button"
               type="submit"
               isValidating={formik.isValidating}
               isSubmitting={formik.isSubmitting}

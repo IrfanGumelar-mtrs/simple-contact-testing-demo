@@ -18,7 +18,6 @@ const ErrorMessage = styled.div`
 `;
 
 function InputText(props) {
-  console.log(props);
   return (
     <FieldGroup>
       <label>{props.label}</label>

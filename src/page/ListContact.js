@@ -110,7 +110,12 @@ function ListContact() {
 
   return (
     <Layout title="Your Contacts">
-      <Button onClick={() => history.push("/contact")}>Add new contact</Button>
+      <Button
+        data-testid="add-new-contact-navigation-button"
+        onClick={() => history.push("/contact")}
+      >
+        Add new contact
+      </Button>
       <ListWrapper>
         {isGetAllContactDataLoading === "pending" ? "Loading..." : null}
         {isGetAllContactDataLoading === "rejected"

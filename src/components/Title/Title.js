@@ -6,7 +6,7 @@ const Wrapper = styled.h1`
 `;
 
 function Title({ children }) {
-  return <Wrapper>{children} </Wrapper>;
+  return <Wrapper data-testid="title">{children}</Wrapper>;
 }
 
 export default Title;
