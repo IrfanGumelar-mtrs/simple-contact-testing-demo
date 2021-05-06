@@ -1,6 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../components/Button/Button";
 import Layout from "../Layout/Layout";
+import {
+  getAllContactData,
+  deleteContact,
+  updateDeleteContactLoadingState,
+} from "../store/contactSlice";
 
 const ContactName = styled.div`
   font-size: 1.5rem;
@@ -40,12 +48,14 @@ const ButtonOptions = styled.div`
   }
 `;
 
-function ListContact() {
-  const item = (
+function ContactItem(props) {
+  return (
     <ListItem>
       <div>
-        <ContactName>Floor jansen</ContactName>
-        <ContactAge>110 years old</ContactAge>
+        <ContactName>
+          {props.firstName} {props.lastName}
+        </ContactName>
+        <ContactAge>{props.age} years old</ContactAge>
       </div>
       <ButtonOptions>
         <Button>Edit</Button>
@@ -53,15 +63,53 @@ function ListContact() {
       </ButtonOptions>
     </ListItem>
   );
+}
+
+function ListContact() {
+  const dispatch = useDispatch();
+
+  const contactList = useSelector((state) => state.contact.list);
+
+  const isGetAllContactDataLoading = useSelector(
+    (state) => state.contact.loadingStates.getAllContactDataIsLoading
+  );
+  const isDeleteContactLoading = useSelector(
+    (state) => state.contact.loadingStates.deleteContactIsLoading
+  );
+
+  useEffect(() => {
+    dispatch(getAllContactData());
+  }, []);
+
+  useEffect(() => {
+    if (isDeleteContactLoading === "rejected") {
+      window.alert("Failed to delete contact item", "Something is wrong", [
+        { text: "OK" },
+      ]);
+    }
+
+    if (isDeleteContactLoading === "fulfilled") {
+      dispatch(getAllContactData());
+    }
+
+    dispatch(updateDeleteContactLoadingState({ status: undefined }));
+  }, [isDeleteContactLoading]);
+
+  // prettier-ignore
+  const listOfContacts = contactList.map((item, index) => 
+    <ContactItem
+      key={index}
+      id={item.id}
+      firstName={item.firstName}
+      lastName={item.lastName}
+      age={item.age}
+    />
+  );
 
   return (
     <Layout title="Your Contacts">
       <Button>Add new contact</Button>
-      <ListWrapper>
-        {item}
-        {item}
-        {item}
-      </ListWrapper>
+      <ListWrapper>{listOfContacts}</ListWrapper>
     </Layout>
   );
 }

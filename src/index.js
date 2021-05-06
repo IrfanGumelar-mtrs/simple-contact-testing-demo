@@ -3,12 +3,16 @@ import ReactDOM from "react-dom";
 import EditContact from "./page/EditContact";
 import ListContact from "./page/ListContact";
 import CreateContact from "./page/CreateContact";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ListContact />
+    <Provider store={store}>
+      <ListContact />
+    </Provider>
     {/* <CreateContact /> */}
 
     {/* <EditContact /> */}
