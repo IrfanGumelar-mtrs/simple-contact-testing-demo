@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../components/Button/Button";
@@ -67,6 +68,7 @@ function ContactItem(props) {
 
 function ListContact() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const contactList = useSelector((state) => state.contact.list);
 
@@ -108,7 +110,7 @@ function ListContact() {
 
   return (
     <Layout title="Your Contacts">
-      <Button>Add new contact</Button>
+      <Button onClick={() => history.push("/contact")}>Add new contact</Button>
       <ListWrapper>
         {isGetAllContactDataLoading === "pending" ? "Loading..." : null}
         {isGetAllContactDataLoading === "rejected"
